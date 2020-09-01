@@ -29,12 +29,15 @@ public class CustomerService {
         customer.setNotes(customerDTO.getNotes());
         customer.setPhoneNumber(customerDTO.getPhoneNumber());
 //        customer.setPetIds(customerDTO.getPetIds());
-//        List<Pet> pets = new ArrayList<>();
-//        List<Long> petIds = customerDTO.getPetIds();
-//        for (Long petId : petIds) {
-//            pets.add(petService.convertDTOtoEntity(petService.getPetById(petId)));
-//        }
-//        customer.setPets(customerDTO.getPetIds());
+        List<Pet> pets = new ArrayList<>();
+        List<Long> petIds = customerDTO.getPetIds();
+        if (petIds != null) {
+            for (Long petId : petIds) {
+                pets.add(petService.convertDTOtoEntity(petService.getPetById(petId)));
+            }
+            customer.setPets(pets);
+        }
+
         return customer;
     }
 
@@ -45,12 +48,14 @@ public class CustomerService {
         customerDTO.setNotes(customer.getNotes());
         customerDTO.setPhoneNumber(customer.getPhoneNumber());
 //        customerDTO.setPetIds(customer.getPetIds());
-//        List<Long> petIds = new ArrayList<>();
-//        List<Pet> pets = customer.getPets();
-//        for (Pet pet : pets) {
-//            petIds.add(pet.getId());
-//        }
-//        customerDTO.setPetIds(petIds);
+        List<Long> petIds = new ArrayList<>();
+        List<Pet> pets = customer.getPets();
+        if (pets != null) {
+            for (Pet pet : pets) {
+                petIds.add(pet.getId());
+            }
+            customerDTO.setPetIds(petIds);
+        }
         return customerDTO;
     }
 

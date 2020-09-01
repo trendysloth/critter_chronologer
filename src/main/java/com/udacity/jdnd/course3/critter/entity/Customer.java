@@ -9,11 +9,11 @@ import java.util.List;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="customer_id")
+    @Column(name="customerId")
     private Long id;
 
-    @OneToMany(targetEntity=Pet.class, fetch = FetchType.LAZY, mappedBy = "ownerId")
-    private List<Long> petIds;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "ownerId")
+    private List<Pet> pets;
 
     @Nationalized
     @Column(length = 64)
@@ -54,11 +54,11 @@ public class Customer {
     }
 
 
-    public List<Long> getPetIds() {
-        return petIds;
+    public List<Pet> getPets() {
+        return pets;
     }
 
-    public void setPetIds(List<Long> petIds) {
-        this.petIds = petIds;
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
     }
 }
