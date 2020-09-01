@@ -20,8 +20,8 @@ public class Pet {
     private LocalDate birthDate;
     private PetType type;
 
-    @JoinColumn(name="customerId")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name="customer_id")
+    @ManyToOne(targetEntity=Customer.class, cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private long ownerId;
 
     public Long getId() {

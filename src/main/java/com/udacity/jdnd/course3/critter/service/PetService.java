@@ -16,7 +16,7 @@ public class PetService {
         Pet pet = new Pet();
         pet.setType(petDTO.getType());
         pet.setName(petDTO.getName());
-//        pet.setOwnerId(petDTO.getOwnerId());
+        pet.setOwnerId(petDTO.getOwnerId());
         pet.setBirthDate(petDTO.getBirthDate());
         pet.setNotes(petDTO.getNotes());
         return pet;
@@ -27,7 +27,7 @@ public class PetService {
         petDTO.setId(pet.getId());
         petDTO.setType(pet.getType());
         petDTO.setName(pet.getName());
-//        petDTO.setOwnerId(pet.getOwnerId());
+        petDTO.setOwnerId(pet.getOwnerId());
         petDTO.setBirthDate(pet.getBirthDate());
         petDTO.setNotes(pet.getNotes());
         return petDTO;
