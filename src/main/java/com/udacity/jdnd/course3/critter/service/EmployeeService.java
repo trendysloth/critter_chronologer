@@ -15,31 +15,13 @@ public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    private Employee convertDTOtoEntity(EmployeeDTO employeeDTO) {
-        Employee employee = new Employee();
-        employee.setName(employeeDTO.getName());
-        employee.setSkills(employeeDTO.getSkills());
-        employee.setDaysAvailable(employeeDTO.getDaysAvailable());
-        return employee;
+    public Employee saveEmployee(Employee employee) {
+        return employeeRepository.save(employee);
     }
 
-    private EmployeeDTO convertEntitytoDTO(Employee employee) {
-        EmployeeDTO employeeDTO = new EmployeeDTO();
-        employeeDTO.setId(employee.getId());
-        employeeDTO.setName(employee.getName());
-        employeeDTO.setSkills(employee.getSkills());
-        employeeDTO.setDaysAvailable(employee.getDaysAvailable());
-        return employeeDTO;
-    }
-
-    public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO) {
-        Employee employee = employeeRepository.save(convertDTOtoEntity(employeeDTO));
-        return convertEntitytoDTO(employee);
-    }
-
-    public EmployeeDTO getEmployeeById(Long id) {
+    public Employee getEmployeeById(Long id) {
         if (employeeRepository.findById(id).isPresent()) {
-            return convertEntitytoDTO(employeeRepository.findById(id).get());
+            return employeeRepository.findById(id).get();
         } else {
             throw new NullPointerException("Employee not found");
         }

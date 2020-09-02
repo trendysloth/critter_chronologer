@@ -20,9 +20,8 @@ public class Pet {
     private LocalDate birthDate;
     private PetType type;
 
-    @JoinColumn(name="customerId")
-    @ManyToOne(targetEntity=Customer.class, cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    private long ownerId;
+    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    private Customer customer;
 
     public Long getId() {
         return id;
@@ -64,11 +63,11 @@ public class Pet {
         this.type = type;
     }
 
-    public long getOwnerId() {
-        return ownerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setOwnerId(long ownerId) {
-        this.ownerId = ownerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

@@ -12,7 +12,7 @@ public class Customer {
     @Column(name="customerId")
     private Long id;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "ownerId")
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Pet> pets;
 
     @Nationalized
@@ -52,7 +52,6 @@ public class Customer {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-
 
     public List<Pet> getPets() {
         return pets;

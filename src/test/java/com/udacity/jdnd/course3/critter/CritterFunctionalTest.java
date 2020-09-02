@@ -72,21 +72,19 @@ public class CritterFunctionalTest {
         PetDTO newPet = petController.savePet(petDTO);
 
         //make sure pet contains customer id
-//        PetDTO retrievedPet = petController.getPet(newPet.getId());
-//        System.out.println(retrievedPet.getId() + " " + newPet.getId());
-//        System.out.println(retrievedPet.getOwnerId() + " " + newCustomer.getId());
-//        Assertions.assertEquals(retrievedPet.getId(), newPet.getId());
-//        Assertions.assertEquals(retrievedPet.getOwnerId(), newCustomer.getId());
+        PetDTO retrievedPet = petController.getPet(newPet.getId());
+        Assertions.assertEquals(retrievedPet.getId(), newPet.getId());
+        Assertions.assertEquals(retrievedPet.getOwnerId(), newCustomer.getId());
 
         //make sure you can retrieve pets by owner
-//        List<PetDTO> pets = petController.getPetsByOwner(newCustomer.getId());
-//        Assertions.assertEquals(newPet.getId(), pets.get(0).getId());
-//        Assertions.assertEquals(newPet.getName(), pets.get(0).getName());
+        List<PetDTO> pets = petController.getPetsByOwner(newCustomer.getId());
+        Assertions.assertEquals(newPet.getId(), pets.get(0).getId());
+        Assertions.assertEquals(newPet.getName(), pets.get(0).getName());
 
         //check to make sure customer now also contains pet
-//        CustomerDTO retrievedCustomer = userController.getAllCustomers().get(0);
-//        Assertions.assertTrue(retrievedCustomer.getPetIds() != null && retrievedCustomer.getPetIds().size() > 0);
-//        Assertions.assertEquals(retrievedCustomer.getPetIds().get(0), retrievedPet.getId());
+        CustomerDTO retrievedCustomer = userController.getAllCustomers().get(0);
+        Assertions.assertTrue(retrievedCustomer.getPetIds() != null && retrievedCustomer.getPetIds().size() > 0);
+        Assertions.assertEquals(retrievedCustomer.getPetIds().get(0), retrievedPet.getId());
     }
 
     @Test
@@ -100,7 +98,6 @@ public class CritterFunctionalTest {
         petDTO.setType(PetType.DOG);
         petDTO.setName("DogName");
         PetDTO newPet2 = petController.savePet(petDTO);
-
         List<PetDTO> pets = petController.getPetsByOwner(newCustomer.getId());
         Assertions.assertEquals(pets.size(), 2);
         Assertions.assertEquals(pets.get(0).getOwnerId(), newCustomer.getId());

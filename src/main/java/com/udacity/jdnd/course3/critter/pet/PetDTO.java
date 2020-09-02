@@ -14,6 +14,14 @@ public class PetDTO {
     private LocalDate birthDate;
     private String notes;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public PetType getType() {
         return type;
     }
@@ -52,13 +60,5 @@ public class PetDTO {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 }

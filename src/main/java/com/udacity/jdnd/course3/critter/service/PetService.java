@@ -1,48 +1,45 @@
 package com.udacity.jdnd.course3.critter.service;
 
+import com.udacity.jdnd.course3.critter.entity.Customer;
 import com.udacity.jdnd.course3.critter.entity.Pet;
 import com.udacity.jdnd.course3.critter.pet.PetDTO;
+import com.udacity.jdnd.course3.critter.repository.CustomerRepository;
 import com.udacity.jdnd.course3.critter.repository.PetRepository;
 import com.udacity.jdnd.course3.critter.user.CustomerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PetService {
     @Autowired
     PetRepository petRepository;
 
-    public Pet convertDTOtoEntity(PetDTO petDTO) {
-        Pet pet = new Pet();
-        pet.setType(petDTO.getType());
-        pet.setName(petDTO.getName());
-        pet.setOwnerId(petDTO.getOwnerId());
-        pet.setBirthDate(petDTO.getBirthDate());
-        pet.setNotes(petDTO.getNotes());
-        return pet;
+    public Pet savePet(Pet pet) {
+        Pet savedPet = petRepository.save(pet);
+        Customer customer = savedPet.getCustomer();
+        List<Pet> pets = customer.getPets();
+        pets.add(pet);
+        customer.setPets(pets);
+        return savedPet;
     }
 
-    public PetDTO convertEntitytoDTO(Pet pet) {
-        PetDTO petDTO = new PetDTO();
-        petDTO.setId(pet.getId());
-        petDTO.setType(pet.getType());
-        petDTO.setName(pet.getName());
-        petDTO.setOwnerId(pet.getOwnerId());
-        petDTO.setBirthDate(pet.getBirthDate());
-        petDTO.setNotes(pet.getNotes());
-        return petDTO;
-    }
-
-    public PetDTO savePet(PetDTO petDTO) {
-        Pet pet = petRepository.save(convertDTOtoEntity(petDTO));
-        return convertEntitytoDTO(pet);
-    }
-
-    public PetDTO getPetById(Long id) {
+    public Pet getPetById(Long id) {
         if (petRepository.findById(id).isPresent()) {
-            return convertEntitytoDTO(petRepository.findById(id).get());
+            return petRepository.findById(id).get();
         } else {
             throw new NullPointerException("Pet not found");
         }
+    }
+
+    public List<Pet> getAllPets() {
+        Iterable<Pet> pets = petRepository.findAll();
+        List<Pet> allPets = new ArrayList<>();
+        for (Pet p : pets) {
+            allPets.add(p);
+        }
+        return allPets;
     }
 }
