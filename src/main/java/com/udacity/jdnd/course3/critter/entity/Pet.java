@@ -5,11 +5,12 @@ import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Pet {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Nationalized
@@ -22,6 +23,9 @@ public class Pet {
 
     @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private Customer customer;
+
+    @ManyToMany
+    private List<Schedule> schedules;
 
     public Long getId() {
         return id;
@@ -69,5 +73,13 @@ public class Pet {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 }

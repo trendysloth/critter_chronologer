@@ -5,12 +5,13 @@ import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Nationalized
@@ -22,6 +23,9 @@ public class Employee {
 
     @ElementCollection
     private Set<DayOfWeek> daysAvailable;
+
+    @ManyToMany
+    private List<Schedule> schedules;
 
     public long getId() {
         return id;
@@ -53,5 +57,13 @@ public class Employee {
 
     public void setDaysAvailable(Set<DayOfWeek> daysAvailable) {
         this.daysAvailable = daysAvailable;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 }
